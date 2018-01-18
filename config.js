@@ -1,6 +1,6 @@
 
 var config = {
-    "APPPATH": "mettletrade",
+    "APPPATH": "calc_test",
     "PORT": 4774,
     "HTTPREQUESTTIMEOUT": 100000,
     isHttps : false,

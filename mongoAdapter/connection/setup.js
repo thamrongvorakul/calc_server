@@ -1,10 +1,5 @@
 const mongoose = require('mongoose'),
-    mongoconf = require('./DB_conf.js'),
-    Grid = require('gridfs-stream');
-Grid.mongo = mongoose.mongo;
-
-
-
+    mongoconf = require('./DB_conf.js');
 
 var dbcredential = "";
 var DB_ADAPTER_SCHEMA = {};
@@ -21,8 +16,7 @@ module.exports = {
 
         mongoose.connect(dbURI);
         var conn = mongoose.connection;
-        gfs = Grid(conn.db);
-        
+
         mongoose.connection.on('connected', function () {
             console.log("MONGOOSE CONNECT : " + dbURI);
             DB_ADAPTER_SCHEMA.users = require('../mongoschema/users.js');

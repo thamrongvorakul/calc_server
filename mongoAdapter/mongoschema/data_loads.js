@@ -5,7 +5,8 @@ var schema = new mongoose.Schema({
     inputB : Number,
     total : Number,
     type : String,
-    savedDate : Date
+    savedDate : Date,
+    uid : String
 });
 
 module.exports = mongoose.model('data_loads', schema , 'data_loads');

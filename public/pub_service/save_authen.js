@@ -3,26 +3,35 @@ exports.startProcess = function (req, res, db, lib) {
     var header = req.headers;
     var now = new Date();
 
-    insertUser();
+    console.log(input);
+    
+    findUser();
+
+    function findUser() {
+        db.users.findOne({
+            name: input.name
+        }).then(function (result) {
+            if (result) {
+                res.json({ ERROR: "304", MESSAGE: "User Already Exists." , DATA : result});
+            } else {
+                insertUser();
+            }
+        }).catch(function (err) {
+            res.json({ ERROR: "500", MESSAGE: "FAILED" , DATA : {}});
+        })
+    };
 
     function insertUser() {
-        console.log(input);
-        
-        // db.users.find({
-        //     startDate: {
-        //         $lte: now
-        //     },
-        //     endDate: {
-        //         $gte: now
-        //     }
-        // }).
-        //     sort({ startDate: -1 }).
-        //     limit(3)
-        //     .then(function (newsResult) {
-        //         res.json(lib.returnmessage.json_success(newsResult));
-        //     }).catch(function (err) {
-        //         res.json(lib.returnmessage.json_error_msg(err, err));
-        //     });
-    };
+        var data = new db.users({
+            name : input.name,
+            cloudSave : false
+        });
+
+        data.save().then(function(result){
+            res.json({ ERROR: "200", MESSAGE: "User saved." , DATA : result});
+        }).catch(function(err){
+            res.json({ ERROR: "500", MESSAGE: "FAILED" , DATA : {}});
+        })
+    }
 }
 
