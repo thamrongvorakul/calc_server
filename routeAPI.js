@@ -21,6 +21,17 @@ module.exports = {
             }
         });
 
+        lib.app.get('/' + lib.config.APPPATH + '/public/pub_service/:service/:json', function (req, res) {
+            try {
+                var service = require('./public/pub_service/' + req.params.service);
+                console.log("*************** start service " + req.params.service + " ***************");
+                service.startProcess(req, res, db_schema, lib);
+            }
+            catch (e) {
+                console.log(e.message);
+                res.json(lib.returnmessage.json_error_msg(e.message));
+            }
+        });
 
     }
 }

@@ -1,5 +1,5 @@
 exports.startProcess = function (req, res, db, lib) {
-    var input = req.body;
+    var input = JSON.parse(req.params.json);
     var header = req.headers;
     var now = new Date();
 
